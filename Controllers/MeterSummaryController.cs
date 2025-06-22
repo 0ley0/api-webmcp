@@ -84,7 +84,6 @@ namespace mcpserver.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception (not implemented here)
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
