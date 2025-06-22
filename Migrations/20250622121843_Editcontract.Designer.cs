@@ -12,8 +12,8 @@ using mcpserver.Model;
 namespace mcpserver.Migrations
 {
     [DbContext(typeof(PGContext))]
-    [Migration("20250622083645_AddContractEntity")]
-    partial class AddContractEntity
+    [Migration("20250622121843_Editcontract")]
+    partial class Editcontract
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

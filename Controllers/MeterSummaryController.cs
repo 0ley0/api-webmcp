@@ -28,21 +28,18 @@ namespace mcpserver.Controllers
                 using var context = _dbContextFactory.CreateDbContext();
                 var result = await context.m_contracts
                     .Include(c => c.LotContracts).ToListAsync();
-
-
-
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                // Log the exception (not implemented here)
+
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
 
         [HttpPost("CreateContract")]
 
-        public async Task<ActionResult<ContractEntity>> CreateLotContract([FromBody] ContractEntity contractes)
+        public async Task<ActionResult<string>> CreateLotContract([FromBody] ContractEntity contractes)
         {
             if (contractes == null)
             {
@@ -52,9 +49,15 @@ namespace mcpserver.Controllers
             try
             {
                 using var context = _dbContextFactory.CreateDbContext();
-                contractes.Timestamp = DateTime.UtcNow.AddHours(7); // Set the timestamp to the current UTC time
-                contractes.ContractDate = DateTime.UtcNow.AddHours(7); // Set the contract date to the current UTC time
-                await context.m_contracts.AddAsync(contractes);
+                var adcon = new ContractEntity
+                {
+                    ContractName = contractes.ContractName,
+                    CustomerName = contractes.CustomerName,
+                    LotContracts = contractes.LotContracts
+                };
+                adcon.Timestamp = DateTime.UtcNow.AddHours(7);
+                adcon.ContractDate = DateTime.UtcNow.AddHours(7);
+                await context.m_contracts.AddAsync(adcon);
                 await context.SaveChangesAsync();
 
                 return CreatedAtAction(nameof(GetContracts), new ContractEntity { Id = contractes.Id }, contractes);
