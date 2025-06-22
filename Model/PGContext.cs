@@ -15,6 +15,11 @@ namespace mcpserver.Model
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+
         public DbSet<ContractEntity> m_contracts { get; set; }
         public DbSet<LotContractEntity> m_lotcontract { get; set; }
 

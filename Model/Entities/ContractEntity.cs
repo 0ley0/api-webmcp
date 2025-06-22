@@ -22,6 +22,7 @@ namespace mcpserver.Model.Entities
 
         [Column("timestamp")]
         public DateTime Timestamp { get; set; }
+        [NotMapped]
         public List<LotContractEntity> LotContracts { get; set; }
 
 
